@@ -3,6 +3,8 @@ import { Form, Input, Button, Layout } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 const { Content, Header } = Layout;
 
+// import home from './home-logo.png'
+
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,15 +16,16 @@ const Login = () => {
     };
 
     const handleSignup = () => {
-        // 회원가입 API 호출 등의 로직 추가
         navigate('/signup')
     };
 
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/">
-                    <Button>Home</Button>
+                <Link to="/" style={{ width: '100px', display: 'block' }}>
+                    <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                        Home
+                    </span>
                 </Link>
             </Header>
             <Content
@@ -63,7 +66,7 @@ const Login = () => {
                             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Form.Item>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                            <Button onClick={handleSignup} >Sign Up</Button>
+                            <Button onClick={handleSignup}>Sign Up</Button>
                             <div style={{ display: 'flex', gap: '8px' }}>
                                 <Button type="primary" htmlType="submit" style={{ marginRight: '8px' }}>
                                     Login

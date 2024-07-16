@@ -15,7 +15,6 @@ function Home() {
                         <Link to="/signup">Signup</Link>
                     </Menu.Item>
                     <Menu.Item key="user">
-                        {/* Replace 'John Doe' with the current user's name */}
                         Test name
                     </Menu.Item>
                 </Menu>
