@@ -1,30 +1,25 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Layout } from 'antd';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const { Header, Content } = Layout;
 
 const Signup = () => {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // 회원가입 API 호출 등의 로직 추가
     };
 
-    const handleLogin = () => {
-        // 로그인 페이지로 이동
-        navigate('/login');
-    };
-
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/">
-                    <Button>Home</Button>
+                <Link to="/" style={{ width: '100px', display: 'block' }}>
+                    <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                        Home
+                    </span>
                 </Link>
             </Header>
             <Content
