@@ -22,4 +22,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/*.pem
+/sha.pem
+sha.pem
+.htpasswd
+/.htpasswd
