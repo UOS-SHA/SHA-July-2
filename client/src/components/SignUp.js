@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Layout } from 'antd';
-import { Link } from 'react-router-dom';
-
-const { Header, Content } = Layout;
+import { useNavigate, Link } from "react-router-dom";
+import axios from 'axios';
+const { Content, Header } = Layout;
 
 const Signup = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [, setMessage] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // 회원가입 API 호출 등의 로직 추가
+    const handleSubmit = async (values) => {
+        try {
+            const response = await axios.post('http://192.168.56.1:5000/signup', {
+                username: values.username,
+                password: values.password
+            });
+            setMessage(response.data.message);
+            if (response.status === 201) {
+                navigate('/login');
+            }
+        } catch (error) {
+            setMessage('Error signing up: ' + (error.response?.data?.message || error.message));
+        }
+        console.log('Username:', values.username);
+        console.log('Password:', values.password);
     };
 
     return (
@@ -59,11 +73,9 @@ const Signup = () => {
                         >
                             <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                         </Form.Item>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button type="primary" htmlType="submit" style={{ marginRight: '8px' }}>
-                                Sign Up
-                            </Button>
-                        </div>
+                        <Button type="primary" htmlType="submit">
+                            Sign Up
+                        </Button>
                     </Form>
                 </div>
             </Content>
