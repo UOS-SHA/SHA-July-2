@@ -12,7 +12,7 @@ const Login = () => {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post('http://192.168.56.1:5000/login', {
+            const response = await axios.post(' http://127.0.0.1:5000/login', {
                 username: values.username,
                 password: values.password
             });

@@ -7,10 +7,10 @@ app = Flask(__name__)
 CORS(app)
 
 db = mysql.connector.connect(
-    host="127.0.0.1",
-    user="root",
-    password="0411",
-    database="login_db"
+    host="database-login.c98wygeiir6f.ap-northeast-2.rds.amazonaws.com",
+    user="admin",
+    password="kimmin0411!",
+    database="database_login"
 )
 
 @app.route('/signup', methods=['POST'])
