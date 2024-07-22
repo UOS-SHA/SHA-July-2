@@ -15,7 +15,7 @@ function Home() {
                         <Link to="/signup">Signup</Link>
                     </Menu.Item>
                     <Menu.Item key="user">
-                        Test name
+                        <Link to="/mypage">My Page</Link>
                     </Menu.Item>
                 </Menu>
             </Header>
