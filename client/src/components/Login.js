@@ -12,7 +12,7 @@ const Login = () => {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post(' http://43.200.57.104:5000/login', {
+            const response = await axios.post('http://127.0.0.1:5000/login', {
                 username: values.username,
                 password: values.password
             });
@@ -21,8 +21,6 @@ const Login = () => {
         } catch (error) {
             message.error('Error logging in: ' + (error.response?.data?.message || error.message));
         }
-        console.log('Username:', values.username);
-        console.log('Password:', values.password);
     };
 
     const handleSignup = () => {
