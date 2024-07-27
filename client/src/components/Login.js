@@ -1,22 +1,32 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Layout } from 'antd';
+import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
-const { Content, Header } = Layout;
+import axios from 'axios';
 
-// import home from './home-logo.png'
+const { Content, Header } = Layout;
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // 로그인 API 호출 등의 로직 추가
+    const handleSubmit = async (values) => {
+        try {
+            const response = await axios.post(' http://43.200.57.104:5000/login', {
+                username: values.username,
+                password: values.password
+            });
+            message.success(response.data.message);
+            navigate('/'); // 로그인 성공 시 홈 페이지로 리디렉션
+        } catch (error) {
+            message.error('Error logging in: ' + (error.response?.data?.message || error.message));
+        }
+        console.log('Username:', values.username);
+        console.log('Password:', values.password);
     };
 
     const handleSignup = () => {
-        navigate('/signup')
+        navigate('/signup');
     };
 
     return (

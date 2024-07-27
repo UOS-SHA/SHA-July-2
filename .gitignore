@@ -24,3 +24,8 @@ yarn-error.log*
 
 # pycharm file
 .venv
+
+/sha.pem
+sha.pem
+.htpasswd
+/.htpasswd
