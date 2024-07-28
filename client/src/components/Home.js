@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
+import Cookies from 'js-cookie';
 
 const { Header } = Layout;
 
 function Home() {
+    const sessionCookie = Cookies.get('session');
+
     return (
         <Layout>
             <Header style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: "#ffffff"}}>
@@ -17,9 +20,13 @@ function Home() {
                     <Menu.Item key="user">
                         <Link to="/mypage">My Page</Link>
                     </Menu.Item>
+                    {sessionCookie && (
+                        <Menu.Item key="session">
+                            Session Cookie: {sessionCookie}
+                        </Menu.Item>
+                    )}
                 </Menu>
             </Header>
-            {/* Your other content goes here */}
         </Layout>
     );
 }
