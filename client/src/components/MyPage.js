@@ -1,26 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import {useNavigate} from "react-router-dom";
+import { useCookies } from 'react-cookie';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const MyPage = () => {
     const [userInfo, setUserInfo] = useState(null);
+    const [cookies] = useCookies(['token'])
     const navigate = useNavigate();
 
     useEffect(() => {
-        const sessionCookie = Cookies.get('session');
-        if (sessionCookie) {
-            try {
-                const userInfo = JSON.parse(sessionCookie);
-                setUserInfo(userInfo);
-            } catch (error) {
-                console.error('Error parsing session cookie:', error);
-            }
+        if (!cookies.token) {
+            navigate('/login');
+        } else {
+            axios.get('http://127.0.0.1:5000/mypage', {
+                headers: {
+                    'Authorization': `Bearer ${cookies.token}`
+                },
+                withCredentials: true
+            })
+                .then(response => {
+                    setUserInfo(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching user info : ', error);
+                    navigate('/login');
+                });
         }
-        else {
-            alert('Please login');
-            navigate('/');
-        }
-    }, []);
+    }, [cookies.token, navigate]);
 
     return (
         <div>
@@ -32,6 +38,8 @@ const MyPage = () => {
             ) : (
                 <p>Loading...</p>
             )}
+            <p>Your token is : </p>
+            <pre>{cookies.token}</pre>
         </div>
     );
 };

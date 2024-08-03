@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Form, Input, Button, Layout, message} from 'antd';
+import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 const { Content, Header } = Layout;
@@ -12,7 +12,7 @@ const Signup = () => {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post(' http://43.200.57.104:5000/signup', {
+            const response = await axios.post('http://127.0.0.1:5000/signup', {
                 username: values.username,
                 password: values.password
             });

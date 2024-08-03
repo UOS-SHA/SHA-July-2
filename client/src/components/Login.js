@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
 const { Content, Header } = Layout;
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [cookies, setCookie] = useCookies(['token'])
     const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
@@ -17,12 +18,13 @@ const Login = () => {
                 password: values.password
             });
             message.success(response.data.message);
+
+            setCookie('token', response.data.token, { path: '/' });
+
             navigate('/'); // 로그인 성공 시 홈 페이지로 리디렉션
         } catch (error) {
             message.error('Error logging in: ' + (error.response?.data?.message || error.message));
         }
-        console.log('Username:', values.username);
-        console.log('Password:', values.password);
     };
 
     const handleSignup = () => {
