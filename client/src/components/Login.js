@@ -21,9 +21,9 @@ const Login = () => {
 
             setCookie('token', response.data.token, { path: '/' });
 
-            navigate('/'); // 로그인 성공 시 홈 페이지로 리디렉션
+            navigate('/');
         } catch (error) {
-            message.error('Error logging in: ' + (error.response?.data?.message || error.message));
+            message.error(error.response?.data?.message || error.message);
         }
     };
 

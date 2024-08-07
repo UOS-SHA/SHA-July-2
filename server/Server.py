@@ -18,21 +18,32 @@ db = mysql.connector.connect(
     database="database_login"
 )
 
+
 @app.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
     username = data.get('username')
     password = data.get('password')
 
-    # 비밀번호 해싱
-    #hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+    # 비밀번호 해싱 (주석 해제)
+    # hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
     cursor = db.cursor()
+
+    # Check out user already registered.
+    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+    user = cursor.fetchone()
+
+    if user:
+        cursor.close()
+        return jsonify({"message": "User already exists"}), 409
+
     cursor.execute("INSERT INTO users (username, password) VALUES (%s, %s)", (username, password))
     db.commit()
     cursor.close()
 
     return jsonify({"message": "User registered successfully"}), 201
+
 
 @app.route('/login', methods=['POST'])
 def login():

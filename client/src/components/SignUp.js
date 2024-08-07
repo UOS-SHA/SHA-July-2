@@ -22,7 +22,11 @@ const Signup = () => {
                 navigate('/login');
             }
         } catch (error) {
-            setMessage('Error signing up: ' + (error.response?.data?.message || error.message));
+            if (error.response && error.response.status === 409) {
+                message.error('User already exists');
+            } else {
+                setMessage('Error signing up: ' + (error.response?.data?.message || error.message));
+            }
         }
         console.log('Username:', values.username);
         console.log('Password:', values.password);
