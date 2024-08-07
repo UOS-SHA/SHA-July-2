@@ -84,7 +84,7 @@ def mypage():
 
 
 
-@app.route('/bet', methods = ['POST'])
+@app.route('/bet', methods=['POST'])
 @jwt_required()
 def bet():
     data = request.json
@@ -93,24 +93,36 @@ def bet():
     result = data.get('result')
     selected_side = data.get('selected_side')
     print(data)
-    print(bet_amount,result,selected_side)
+    print(bet_amount, result, selected_side)
 
     cursor = db.cursor(dictionary=True)
     cursor.execute("SELECT * FROM users WHERE username = %s", (user,))
     users = cursor.fetchone()
     print(users)
     if not users:
-        return jsonify({"message" : "User not found"}),404
-    if result==selected_side:
-        users['point'] += bet_amount 
+        return jsonify({"message": "User not found"}), 404
+
+    if bet_amount <= 0:
+        return jsonify({"message": "Bet would result in negative points"}), 400
+
+    current_points = users['point']
+    if bet_amount > current_points:
+        return jsonify({"message": "Insufficient points to place bet"}), 400
+
+    if result == selected_side:
+        new_points = current_points + bet_amount
     else:
-        users['point'] -= bet_amount
+        new_points = current_points - bet_amount
+
+
+    users['point'] = new_points
     print(users['point'])
-    cursor.execute("UPDATE users SET point = %s  WHERE username = %s",(users['point'], user))
+    cursor.execute("UPDATE users SET point = %s WHERE username = %s", (users['point'], user))
     db.commit()
     cursor.close()
 
     return jsonify(users)
+
 
 @app.route('/admin', methods=['GET'])
 @jwt_required()
