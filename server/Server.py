@@ -74,16 +74,57 @@ def mypage():
     username = get_jwt_identity()
 
     cursor = db.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
-    user_info = cursor.fetchone()
+    cursor.execute("SELECT point, username FROM users WHERE username = %s", (username,))
+    userInfo = cursor.fetchone()
     cursor.close()
-    if user_info:
-        return jsonify(user_info),200
+    if userInfo:
+        return jsonify(userInfo),200
     else:
         return jsonify({'message' : "User Not Found"}), 404
 
 
 
+@app.route('/bet', methods = ['POST'])
+@jwt_required()
+def bet():
+    data = request.json
+    user = get_jwt_identity()
+    bet_amount = data.get('bet_amount')
+    result = data.get('result')
+    selected_side = data.get('selected_side')
+    print(data)
+    print(bet_amount,result,selected_side)
+
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users WHERE username = %s", (user,))
+    users = cursor.fetchone()
+    print(users)
+    if not users:
+        return jsonify({"message" : "User not found"}),404
+    if result==selected_side:
+        users['point'] += bet_amount 
+    else:
+        users['point'] -= bet_amount
+    print(users['point'])
+    cursor.execute("UPDATE users SET point = %s  WHERE username = %s",(users['point'], user))
+    db.commit()
+    cursor.close()
+
+    return jsonify(users)
+
+@app.route('/admin', methods=['GET'])
+@jwt_required()
+def admin():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM users")
+    users = cursor.fetchall()
+    
+    current_user = get_jwt_identity()
+    cursor.execute("SELECT * FROM users WHERE username = %s",(current_user,))
+    currentUserInfo = cursor.fetchone()
+    if currentUserInfo['role'] != 'admin':
+        return jsonify({'error' : 'Access forbidden'}), 403
+    return jsonify(users),200
 
 if __name__ == "__main__":
     app.run(host = '0.0.0.0',debug=True)
