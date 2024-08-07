@@ -3,6 +3,7 @@ import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import pasino from "./Pasino.png";
 const { Content, Header } = Layout;
 
 const Login = () => {
@@ -21,9 +22,9 @@ const Login = () => {
 
             setCookie('token', response.data.token, { path: '/' });
 
-            navigate('/'); // 로그인 성공 시 홈 페이지로 리디렉션
+            navigate('/');
         } catch (error) {
-            message.error('Error logging in: ' + (error.response?.data?.message || error.message));
+            message.error(error.response?.data?.message || error.message);
         }
     };
 
@@ -34,10 +35,10 @@ const Login = () => {
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/" style={{ width: '100px', display: 'block' }}>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        Home
-                    </span>
+                <Link to="/" style={{width: '100px', display: 'block'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <img src={pasino} style={{width: "250px", marginTop: "16px"}}/>
+                    </div>
                 </Link>
             </Header>
             <Content

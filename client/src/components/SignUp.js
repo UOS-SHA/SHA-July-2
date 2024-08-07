@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import pasino from "./Pasino.png";
 const { Content, Header } = Layout;
 
 const Signup = () => {
@@ -22,7 +23,11 @@ const Signup = () => {
                 navigate('/login');
             }
         } catch (error) {
-            setMessage('Error signing up: ' + (error.response?.data?.message || error.message));
+            if (error.response && error.response.status === 409) {
+                message.error('User already exists');
+            } else {
+                setMessage('Error signing up: ' + (error.response?.data?.message || error.message));
+            }
         }
         console.log('Username:', values.username);
         console.log('Password:', values.password);
@@ -31,10 +36,10 @@ const Signup = () => {
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/" style={{ width: '100px', display: 'block' }}>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        Home
-                    </span>
+                <Link to="/" style={{width: '100px', display: 'block'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <img src={pasino} style={{width: "250px", marginTop: "16px"}}/>
+                    </div>
                 </Link>
             </Header>
             <Content
