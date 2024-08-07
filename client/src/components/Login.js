@@ -9,7 +9,7 @@ const { Content, Header } = Layout;
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [cookies, setCookie] = useCookies(['token'])
+    const [cookies, setCookie] = useCookies(['token']);
     const navigate = useNavigate();
 
     const handleSubmit = async (values) => {
@@ -35,9 +35,9 @@ const Login = () => {
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/" style={{width: '100px', display: 'block'}}>
-                    <div style={{display: 'flex', alignItems: 'center'}}>
-                        <img src={pasino} style={{width: "250px", marginTop: "16px"}}/>
+                <Link to="/" style={{ width: '100px', display: 'block' }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <img src={pasino} style={{ width: "250px", marginTop: "16px" }} />
                     </div>
                 </Link>
             </Header>
