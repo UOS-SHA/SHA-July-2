@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Layout, message } from 'antd';
 import { useNavigate, Link } from "react-router-dom";
 import axios from 'axios';
+import pasino from "./Pasino.png";
 const { Content, Header } = Layout;
 
 const Signup = () => {
@@ -35,10 +36,10 @@ const Signup = () => {
     return (
         <Layout>
             <Header style={{ backgroundColor: '#ffffff', zIndex: 1 }}>
-                <Link to="/" style={{ width: '100px', display: 'block' }}>
-                    <span style={{ fontSize: '24px', fontWeight: 'bold' }}>
-                        Home
-                    </span>
+                <Link to="/" style={{width: '100px', display: 'block'}}>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <img src={pasino} style={{width: "250px", marginTop: "16px"}}/>
+                    </div>
                 </Link>
             </Header>
             <Content
