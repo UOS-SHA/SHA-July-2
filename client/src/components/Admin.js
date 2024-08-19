@@ -14,7 +14,7 @@ const Admin = () => {
         const fetchUsers = async () => {
             try {
                 const token = Cookies.get('token');
-                const response = await axios.get('http://127.0.0.1:5000/admin', {
+                const response = await axios.get('http://43.200.57.104:5000/admin', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

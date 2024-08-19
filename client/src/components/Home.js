@@ -17,7 +17,7 @@ function Home() {
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <img src={pasino} style={{ width: "250px", marginTop: "50px"}} />
                 </div>
-                <Menu mode="horizontal" style={{ border: 'none' }}>
+                <Menu mode="horizontal" style={{ border: 'none',flexGrow: 1,justifyContent:'flex-end',display:'flex' }}>
                     {!sessionCookie ? (
                         <>
                             <Menu.Item key="login">

@@ -13,7 +13,7 @@ const Signup = () => {
 
     const handleSubmit = async (values) => {
         try {
-            const response = await axios.post('http://127.0.0.1:5000/signup', {
+            const response = await axios.post('http://43.200.57.104:5000/signup', {
                 username: values.username,
                 password: values.password
             });

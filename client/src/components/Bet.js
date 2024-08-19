@@ -40,7 +40,7 @@ const CoinFlipBetting = () => {
             setCoinImage(coin); // 결과 후 원래 이미지로 변경
 
             try {
-                const response = await axios.post('http://127.0.0.1:5000/bet', {
+                const response = await axios.post('http://43.200.57.104:5000/bet', {
                     bet_amount: parseInt(bet, 10),
                     result: outcome,
                     selected_side: selectedSide
@@ -73,7 +73,7 @@ const CoinFlipBetting = () => {
 
     const fetchUserPoints = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:5000/mypage', {
+            const response = await axios.get('http://43.200.57.104:5000/mypage', {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`,
                     'Content-Type': 'application/json'

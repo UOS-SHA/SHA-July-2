@@ -17,7 +17,7 @@ const MyPage = () => {
         if (!cookies.token) {
             navigate('/login');
         } else {
-            axios.get('http://127.0.0.1:5000/mypage', {
+            axios.get('http://43.200.57.104:5000/mypage', {
                 headers: {
                     'Authorization': `Bearer ${cookies.token}`
                 },
